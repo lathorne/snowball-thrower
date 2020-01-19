@@ -33,13 +33,21 @@ typedef enum {
 	R,
 	THROW,
 	NOTHING,
-	TRIGGERS
+	TRIGGERS,
+	HOME,
+	PLUS
 } Buttons_t;
 
 typedef struct {
 	Buttons_t button;
 	uint16_t duration;
 } command; 
+
+// possible macros:
+// hatching eggs
+// rotom lotto
+// releasing pokemon
+// frame skipping
 
 static const command step[] = {
 	// Setup controller
@@ -51,139 +59,96 @@ static const command step[] = {
 	{ A,          5 },
 	{ NOTHING,  250 },
 
-	// Talk to Pondo
-	{ A,          5 }, // Start
+	// PREREQS:
+	// FULL PARTY, WITH NO OTHER EGGS
+	// START ON ROUTE 5
+	// MENU HOVERING OVER MAP OPTION
+	// EGG READY IN ROUTE 5 DAY CARE
+	// PROPER POKEMON IN THE DAY CARE
+	// CARKOL IN SLOT THAT ISN'T SLOT ONE
+	// START ON BIKE
+	// TEXT SPEED SET TO FAST
+
+	// MAY WANT OVAL AND SHINY CHARMS
+
+	// NEED TO CHECK THE TIMES TO OPTIMIZE PROCESS
+	// SET UP FOR DREEPY, WILL NOT WORK WITH ANYTHING THAT REQUIRES MORE STEPS
+	// NEED TO MAKE SURE THERE IS ALWAYS AN EGG READY WHEN ONE HATCHES
+
+	// MIGHT WANT TO SET UP BIKE BOOST TO MAKE THE PROCESS FASTER
+
+	// This is where the repetition starts
+	// Fly to nursery
+	{ X, 	      5 }, // open menu
+	{ NOTHING,	 30 },
+	{ A,	      5 }, // select map
+	{ NOTHING,	110 }, // wait for map to open
+	{ UP,	      5 }, // move up to the nursery
+	{ NOTHING,	  5 }, // wait a bit
+	{ DOWN,	      3 }, // move back down to the nursery
+	{ NOTHING,	 30 }, // wait for a bit
+	{ A,	      5 }, // select nursery
+	{ NOTHING,	 25 },
+	{ A,	      5 }, // confirm flying to nursery
+	{ NOTHING,	120 },
+	{ PLUS,       5 },
 	{ NOTHING,   30 },
-	{ B,          5 }, // Quick output of text
-	{ NOTHING,   20 }, // Halloo, kiddums!
-	{ A,          5 }, // <- I'll try it!
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ A,          5 }, // <- OK!
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // Aha! Play bells are ringing! I gotta set up the pins, but I'll be back in a flurry
-	{ A,          5 }, // <Continue>
-	{ NOTHING,  325 }, // Cut to different scene (Knock 'em flat!)
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ A,          5 }, // <Continue> // Camera transition takes place after this
-	{ NOTHING,   50 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // If you can knock over all 10 pins in one roll, that's a strike
-	{ A,          5 }, // <Continue>
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // A spare is...
-	{ A,          5 }, // <Continue>
-	{ NOTHING,  100 }, // Well, good luck
-	{ A,          5 }, // <Continue>
-	{ NOTHING,  150 }, // Pondo walks away
-
-	// Pick up Snowball (Or alternatively, run to bail in case of a non-strike)
-	{ A,          5 },
-	{ NOTHING,   50 },
-	{ LEFT,      42 },
-	{ UP,        80 },
-	{ THROW,     25 },
-
-	// Non-strike alternative flow, cancel bail and rethrow
-	{ NOTHING,   30 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 }, // I have to split dialogue (It's nothing)
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,  450 },
-	{ B,          5 }, // Snowly moly... there are rules!
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 }, // Second dialogue
-	{ NOTHING,   20 },
-	{ DOWN,      10 }, // Return to snowball
-	{ NOTHING,   20 },
-	{ A,          5 }, // Pick up snowball, we just aimlessly throw it
-	{ NOTHING,   50 },
-	{ UP,        10 },
-	{ THROW,     25 },
-
-	// Back at main flow
-	{ NOTHING,  175 }, // Ater throw wait
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // To the rewards
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
+	{ LEFT,      22 }, 
+	{ UP,	      8 }, // move toward nursery lady
 	
-	{ B,          5 }, // Wait for 450 cycles by bashing B (Like real players do!)
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 } // Saving, intermission
+	// Grab egg from nursery
+	{ A,	      5 },
+	{ NOTHING,   60 }, // there's an egg, do you want it? --
+	{ A, 	      5 }, // accept egg
+	{ NOTHING,  190 }, // You have received an egg! --
+	{ A,	      5 }, // confirm
+	{ NOTHING,   80 }, // where do you want to send Egg to?
+	{ A,	      5 }, // add to party
+	{ NOTHING,   90 }, // select a Pokemon to swap from party --
+	{ A,	      5 }, // confirm
+	{ NOTHING,   70 }, // wait 
+	{ A,          5 }, // first second slot in party
+	{ NOTHING,   90 }, // egg will be added to your party
+	{ A,	      5 },
+	{ NOTHING,   85 }, // Raise it well! slight --
+	{ A,	      5 }, // egg received
+	{ NOTHING,   80 },
+
+	// Run around with the egg until it hatches
+	{ DOWN,		 30 },
+	{ NOTHING,	 10 }, // wait
+	{ PLUS,	      5 }, // getting on bike
+	{ NOTHING,	 10 },
+	{ RIGHT, 	700 },
+	{ UP, 		  5 },
+	{ NOTHING,	 10 },
+	{ LEFT,	    600 },
+	{ DOWN,		  5 },
+	{ NOTHING,	 10 },
+	{ RIGHT,	600 }, 
+	{ UP, 		  5 },
+	{ NOTHING,	 10 },
+	{ LEFT,	    600 },
+	{ DOWN,		  5 },
+	{ NOTHING,	 10 },
+	{ RIGHT,	600 },
+	{ UP, 		  5 },
+	{ NOTHING,	 10 },
+	{ LEFT,	    600 },
+	{ DOWN,		  5 },
+	{ NOTHING,	 10 },
+	{ RIGHT,	600 },
+	{ UP, 		  5 },
+	{ NOTHING,	 10 },
+	{ LEFT,	    600 },
+	{ DOWN,		  5 },
+	{ NOTHING,	 10 },
+	{ RIGHT,	450 }, // Oh? could be less time here
+
+	{ A,		  5 },
+	{ NOTHING,	700 }, // Egg is hatching
+	{ A,		  5 },
+	{ NOTHING,	150 } // Waiting for the screen to fade back to the player
 };
 
 // Main entry point.
@@ -418,6 +383,14 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					ReportData->Button |= SWITCH_B;
 					break;
 
+				case X:
+					ReportData->Button |= SWITCH_X;
+					break;
+
+				case Y:
+					ReportData->Button |= SWITCH_Y;
+					break;
+
 				case R:
 					ReportData->Button |= SWITCH_R;
 					break;
@@ -429,6 +402,14 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 				case TRIGGERS:
 					ReportData->Button |= SWITCH_L | SWITCH_R;
+					break;
+
+				case HOME:
+					ReportData->Button |= SWITCH_HOME;
+					break;
+
+				case PLUS:
+					ReportData->Button |= SWITCH_PLUS;
 					break;
 
 				default:
