@@ -43,12 +43,6 @@ typedef struct {
 	uint16_t duration;
 } command; 
 
-// possible macros:
-// hatching eggs
-// rotom lotto
-// releasing pokemon
-// frame skipping
-
 static const command step[] = {
 	// Setup controller
 	{ NOTHING,  250 },
