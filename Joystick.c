@@ -110,7 +110,7 @@ static const command step[] = {
 	{ A,          5 }, // first second slot in party
 	{ NOTHING,   90 }, // egg will be added to your party
 	{ A,	      5 },
-	{ NOTHING,   85 }, // Raise it well! slight --
+	{ NOTHING,  100 }, // Raise it well! slight --
 	{ A,	      5 }, // egg received
 	{ NOTHING,   80 },
 
