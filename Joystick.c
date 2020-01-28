@@ -19,7 +19,9 @@ these buttons for our use.
 */
 
 #include "Joystick.h"
+#include "Defaults.h"
 
+/*
 typedef enum {
 	UP,
 	DOWN,
@@ -42,9 +44,12 @@ typedef struct {
 	Buttons_t button;
 	uint16_t duration;
 } command; 
+*/
 
+/*
 static const command step[] = {
-	// Setup controller
+
+	// Setup controller - necessary for normal Switch, but not for Switch Lite
 	{ NOTHING,  250 },
 	{ TRIGGERS,   5 },
 	{ NOTHING,  150 },
@@ -53,6 +58,15 @@ static const command step[] = {
 	{ A,          5 },
 	{ NOTHING,  250 },
 
+	// Skipping the first seven commands
+	// { NOTHING,    5 },
+	// { NOTHING,    5 }, 
+	// { NOTHING,    5 },
+	// { NOTHING,    5 }, 
+	// { NOTHING,    5 },
+	// { NOTHING,    5 },
+	// { NOTHING,    5 },
+	
 	// PREREQS:
 	// FULL PARTY, WITH NO OTHER EGGS
 	// START ON ROUTE 5
@@ -92,58 +106,207 @@ static const command step[] = {
 	
 	// Grab egg from nursery
 	{ A,	      5 },
-	{ NOTHING,   60 }, // there's an egg, do you want it? --
+	{ NOTHING,   60 }, // there's an egg, do you want it? 
 	{ A, 	      5 }, // accept egg
-	{ NOTHING,  190 }, // You have received an egg! --
+	{ NOTHING,  190 }, // You have received an egg! 
 	{ A,	      5 }, // confirm
-	{ NOTHING,   80 }, // where do you want to send Egg to?
+	{ NOTHING,  100 }, // where do you want to send Egg to?
 	{ A,	      5 }, // add to party
-	{ NOTHING,   90 }, // select a Pokemon to swap from party --
-	{ A,	      5 }, // confirm
-	{ NOTHING,   70 }, // wait 
-	{ A,          5 }, // first second slot in party
-	{ NOTHING,   90 }, // egg will be added to your party
+	{ NOTHING,  110 }, // select a Pokemon to swap from party
+	{ A,	      5 }, 
+	{ NOTHING,  100 }, // wait 
+	{ A,          5 }, // first slot in party
+	{ NOTHING,  110 }, // egg will be added to your party, this is very close here
 	{ A,	      5 },
-	{ NOTHING,  100 }, // Raise it well! slight --
+	{ NOTHING,   90 }, // Raise it well! // HAVING AN ISSUE HERE, SOMETIMES THE NEXT A MISSES AND IT STAYS HERE
 	{ A,	      5 }, // egg received
-	{ NOTHING,   80 },
+	{ NOTHING,   80 }, // could be less time here
 
+	// THE COMMENTS DOUBLE THE STEP COUNT FOR DREEPY EGGS (10240) AS OPPOSED TO GRIMMSNARL (5120)
 	// Run around with the egg until it hatches
 	{ DOWN,		 30 },
 	{ NOTHING,	 10 }, // wait
 	{ PLUS,	      5 }, // getting on bike
 	{ NOTHING,	 10 },
-	{ RIGHT, 	700 },
+	{ RIGHT, 	350 }, // 700
 	{ UP, 		  5 },
 	{ NOTHING,	 10 },
-	{ LEFT,	    600 },
+	{ LEFT,	    300 }, // 600
 	{ DOWN,		  5 },
 	{ NOTHING,	 10 },
-	{ RIGHT,	600 }, 
+	{ RIGHT,	300 }, // 600
 	{ UP, 		  5 },
 	{ NOTHING,	 10 },
-	{ LEFT,	    600 },
+	{ LEFT,	    300 }, // 600
 	{ DOWN,		  5 },
 	{ NOTHING,	 10 },
-	{ RIGHT,	600 },
+	{ RIGHT,	300 }, // 600
 	{ UP, 		  5 },
 	{ NOTHING,	 10 },
-	{ LEFT,	    600 },
+	{ LEFT,	    300 }, // 600
 	{ DOWN,		  5 },
 	{ NOTHING,	 10 },
-	{ RIGHT,	600 },
+	{ RIGHT,	300 }, // 600
 	{ UP, 		  5 },
 	{ NOTHING,	 10 },
-	{ LEFT,	    600 },
+	{ LEFT,	    300 }, // 600
 	{ DOWN,		  5 },
 	{ NOTHING,	 10 },
-	{ RIGHT,	450 }, // Oh? could be less time here
+	{ RIGHT,	225 }, // Oh? could be less time here // 450
 
 	{ A,		  5 },
 	{ NOTHING,	700 }, // Egg is hatching
 	{ A,		  5 },
 	{ NOTHING,	150 } // Waiting for the screen to fade back to the player
+
+	// RELEASE HERE
+
+	// 1ST ROW
+	
+	{ A,		  5 }, 
+	{ NOTHING,	  5 }, 
+	{ UP,		  5 },
+	{ NOTHING,	  5 },
+	{ UP,		  5 }, // move to release choice
+	{ NOTHING,    5 },
+	{ A,		  5 }, // select to release
+	{ NOTHING,	 35 }, // do you really want to release this pokemon?
+	{ UP,		  5 }, 
+	{ NOTHING,	  5 },
+	{ A,		  5 }, // yes
+	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
+	{ A,		  5 }, // confirm
+	{ NOTHING,    5 }, 
+	{ RIGHT,      5 }, // move to the next pokemon
+	{ NOTHING,	  5 }, 
+
+	{ A,		  5 }, 
+	{ NOTHING,	  5 }, 
+	{ UP,		  5 },
+	{ NOTHING,	  5 },
+	{ UP,		  5 }, // move to release choice
+	{ NOTHING,    5 },
+	{ A,		  5 }, // select to release
+	{ NOTHING,	 35 }, // do you really want to release this pokemon?
+	{ UP,		  5 }, 
+	{ NOTHING,	  5 },
+	{ A,		  5 }, // yes
+	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
+	{ A,		  5 }, // confirm
+	{ NOTHING,    5 }, 
+	{ RIGHT,      5 }, // move to the next pokemon
+	{ NOTHING,	  5 }, 
+
+	{ A,		  5 }, 
+	{ NOTHING,	  5 }, 
+	{ UP,		  5 },
+	{ NOTHING,	  5 },
+	{ UP,		  5 }, // move to release choice
+	{ NOTHING,    5 },
+	{ A,		  5 }, // select to release
+	{ NOTHING,	 35 }, // do you really want to release this pokemon?
+	{ UP,		  5 }, 
+	{ NOTHING,	  5 },
+	{ A,		  5 }, // yes
+	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
+	{ A,		  5 }, // confirm
+	{ NOTHING,    5 }, 
+	{ RIGHT,      5 }, // move to the next pokemon
+	{ NOTHING,	  5 }, 
+
+	{ A,		  5 }, 
+	{ NOTHING,	  5 }, 
+	{ UP,		  5 },
+	{ NOTHING,	  5 },
+	{ UP,		  5 }, // move to release choice
+	{ NOTHING,    5 },
+	{ A,		  5 }, // select to release
+	{ NOTHING,	 35 }, // do you really want to release this pokemon?
+	{ UP,		  5 }, 
+	{ NOTHING,	  5 },
+	{ A,		  5 }, // yes
+	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
+	{ A,		  5 }, // confirm
+	{ NOTHING,    5 }, 
+	{ RIGHT,      5 }, // move to the next pokemon
+	{ NOTHING,	  5 },
+
+	{ A,		  5 }, 
+	{ NOTHING,	  5 }, 
+	{ UP,		  5 },
+	{ NOTHING,	  5 },
+	{ UP,		  5 }, // move to release choice
+	{ NOTHING,    5 },
+	{ A,		  5 }, // select to release
+	{ NOTHING,	 35 }, // do you really want to release this pokemon?
+	{ UP,		  5 }, 
+	{ NOTHING,	  5 },
+	{ A,		  5 }, // yes
+	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
+	{ A,		  5 }, // confirm
+	{ NOTHING,    5 }, 
+	{ RIGHT,      5 }, // move to the next pokemon
+	{ NOTHING,	  5 }, 
+
+	{ A,		  5 }, 
+	{ NOTHING,	  5 }, 
+	{ UP,		  5 },
+	{ NOTHING,	  5 },
+	{ UP,		  5 }, // move to release choice
+	{ NOTHING,    5 },
+	{ A,		  5 }, // select to release
+	{ NOTHING,	 35 }, // do you really want to release this pokemon?
+	{ UP,		  5 }, 
+	{ NOTHING,	  5 },
+	{ A,		  5 }, // yes
+	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
+	{ A,		  5 }, // confirm
+	{ NOTHING,    5 }, 	
+	{ DOWN,		  5 }, // DONE WITH ROW: move to next row
+	{ NOTHING, 	  5 },
+
+	//END OF ROW - AFTER THE FIFTH TIME, NEED TO SKIP NEXT SECTION AND CHANGE BOXES INSTEAD
+
+	{ LEFT,	      5 }, // going back to the start of the row
+	{ NOTHING,	  5 },
+	{ LEFT,	      5 },
+	{ NOTHING,	  5 },
+	{ LEFT,	      5 },
+	{ NOTHING,	  5 },
+	{ LEFT,	      5 },
+	{ NOTHING,	  5 },
+	{ LEFT,	      5 },
+	{ NOTHING,	  5 },
+
+	// CHANGING BOXES HERE
+
+	// { R,		  5 }, // Change box
+	// { NOTHING,   10 },
+	// { UP,		  5 },
+	// { NOTHING,	  5 },
+	// { UP,		  5 }, 
+	// { NOTHING,    5 },
+	// { UP,		  5 },
+	// { NOTHING,	  5 },
+	// { UP,		  5 }, // move back to top row
+	// { NOTHING,    5 },
+	// { LEFT,	      5 }, 
+	// { NOTHING,	  5 },
+	// { LEFT,	      5 },
+	// { NOTHING,	  5 },
+	// { LEFT,	      5 },
+	// { NOTHING,	  5 },
+	// { LEFT,	      5 },
+	// { NOTHING,	  5 },
+	// { LEFT,	      5 }, // move back to first slot in box
+	// { NOTHING,	  5 },
+	
+
+// END OF RELEASING	
+
+
 };
+*/
 
 // Main entry point.
 int main(void) {
@@ -152,7 +315,7 @@ int main(void) {
 	// We'll then enable global interrupts for our use.
 	GlobalInterruptEnable();
 	// Once that's done, we'll enter an infinite loop.
-	for (;;)
+	for (;;) // HOW CAN I MAKE THE LOOP RUN A CERTAIN NUMBER OF TIMES??
 	{
 		// We need to run our task to process and deliver data for our IN and OUT endpoints.
 		HID_Task();
@@ -415,25 +578,28 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					break;
 			}
 
+			// incremenent duration - arbitrary count value
 			duration_count++;
 
+			// if the button has been pressed long enough, it will move to the next position in the buffer
 			if (duration_count > step[bufindex].duration)
 			{
 				bufindex++;
 				duration_count = 0;				
 			}
 
-
+			// this means we are at the end of the loop
 			if (bufindex > (int)( sizeof(step) / sizeof(step[0])) - 1)
 			{
 
 				// state = CLEANUP;
 
-				bufindex = 7;
+				bufindex = 7; // this takes into account the controller setup
 				duration_count = 0;
 
 				state = BREATHE;
 
+				// resets all of the controller inputs
 				ReportData->LX = STICK_CENTER;
 				ReportData->LY = STICK_CENTER;
 				ReportData->RX = STICK_CENTER;
