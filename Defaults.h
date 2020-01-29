@@ -9,7 +9,7 @@
 #define RELEASE
 
 // this will dictate both the amount of pokemon and the number of boxes released (still a work in progress)
-#define NUM_BOXES 2
+#define NUM_BOXES 9
 
 typedef enum {
 	UP,
