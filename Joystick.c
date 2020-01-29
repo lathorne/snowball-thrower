@@ -21,293 +21,6 @@ these buttons for our use.
 #include "Joystick.h"
 #include "Defaults.h"
 
-/*
-typedef enum {
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
-	X,
-	Y,
-	A,
-	B,
-	L,
-	R,
-	THROW,
-	NOTHING,
-	TRIGGERS,
-	HOME,
-	PLUS
-} Buttons_t;
-
-typedef struct {
-	Buttons_t button;
-	uint16_t duration;
-} command; 
-*/
-
-/*
-static const command step[] = {
-
-	// Setup controller - necessary for normal Switch, but not for Switch Lite
-	{ NOTHING,  250 },
-	{ TRIGGERS,   5 },
-	{ NOTHING,  150 },
-	{ TRIGGERS,   5 },
-	{ NOTHING,  150 },
-	{ A,          5 },
-	{ NOTHING,  250 },
-
-	// Skipping the first seven commands
-	// { NOTHING,    5 },
-	// { NOTHING,    5 }, 
-	// { NOTHING,    5 },
-	// { NOTHING,    5 }, 
-	// { NOTHING,    5 },
-	// { NOTHING,    5 },
-	// { NOTHING,    5 },
-	
-	// PREREQS:
-	// FULL PARTY, WITH NO OTHER EGGS
-	// START ON ROUTE 5
-	// MENU HOVERING OVER MAP OPTION
-	// EGG READY IN ROUTE 5 DAY CARE
-	// PROPER POKEMON IN THE DAY CARE
-	// CARKOL IN SLOT THAT ISN'T SLOT ONE
-	// START ON BIKE
-	// TEXT SPEED SET TO FAST
-
-	// MAY WANT OVAL AND SHINY CHARMS
-
-	// NEED TO CHECK THE TIMES TO OPTIMIZE PROCESS
-	// SET UP FOR DREEPY, WILL NOT WORK WITH ANYTHING THAT REQUIRES MORE STEPS
-	// NEED TO MAKE SURE THERE IS ALWAYS AN EGG READY WHEN ONE HATCHES
-
-	// MIGHT WANT TO SET UP BIKE BOOST TO MAKE THE PROCESS FASTER
-
-	// This is where the repetition starts
-	// Fly to nursery
-	{ X, 	      5 }, // open menu
-	{ NOTHING,	 30 },
-	{ A,	      5 }, // select map
-	{ NOTHING,	110 }, // wait for map to open
-	{ UP,	      5 }, // move up to the nursery
-	{ NOTHING,	  5 }, // wait a bit
-	{ DOWN,	      3 }, // move back down to the nursery
-	{ NOTHING,	 30 }, // wait for a bit
-	{ A,	      5 }, // select nursery
-	{ NOTHING,	 25 },
-	{ A,	      5 }, // confirm flying to nursery
-	{ NOTHING,	120 },
-	{ PLUS,       5 },
-	{ NOTHING,   30 },
-	{ LEFT,      22 }, 
-	{ UP,	      8 }, // move toward nursery lady
-	
-	// Grab egg from nursery
-	{ A,	      5 },
-	{ NOTHING,   60 }, // there's an egg, do you want it? 
-	{ A, 	      5 }, // accept egg
-	{ NOTHING,  190 }, // You have received an egg! 
-	{ A,	      5 }, // confirm
-	{ NOTHING,  100 }, // where do you want to send Egg to?
-	{ A,	      5 }, // add to party
-	{ NOTHING,  110 }, // select a Pokemon to swap from party
-	{ A,	      5 }, 
-	{ NOTHING,  100 }, // wait 
-	{ A,          5 }, // first slot in party
-	{ NOTHING,  110 }, // egg will be added to your party, this is very close here
-	{ A,	      5 },
-	{ NOTHING,   90 }, // Raise it well! // HAVING AN ISSUE HERE, SOMETIMES THE NEXT A MISSES AND IT STAYS HERE
-	{ A,	      5 }, // egg received
-	{ NOTHING,   80 }, // could be less time here
-
-	// THE COMMENTS DOUBLE THE STEP COUNT FOR DREEPY EGGS (10240) AS OPPOSED TO GRIMMSNARL (5120)
-	// Run around with the egg until it hatches
-	{ DOWN,		 30 },
-	{ NOTHING,	 10 }, // wait
-	{ PLUS,	      5 }, // getting on bike
-	{ NOTHING,	 10 },
-	{ RIGHT, 	350 }, // 700
-	{ UP, 		  5 },
-	{ NOTHING,	 10 },
-	{ LEFT,	    300 }, // 600
-	{ DOWN,		  5 },
-	{ NOTHING,	 10 },
-	{ RIGHT,	300 }, // 600
-	{ UP, 		  5 },
-	{ NOTHING,	 10 },
-	{ LEFT,	    300 }, // 600
-	{ DOWN,		  5 },
-	{ NOTHING,	 10 },
-	{ RIGHT,	300 }, // 600
-	{ UP, 		  5 },
-	{ NOTHING,	 10 },
-	{ LEFT,	    300 }, // 600
-	{ DOWN,		  5 },
-	{ NOTHING,	 10 },
-	{ RIGHT,	300 }, // 600
-	{ UP, 		  5 },
-	{ NOTHING,	 10 },
-	{ LEFT,	    300 }, // 600
-	{ DOWN,		  5 },
-	{ NOTHING,	 10 },
-	{ RIGHT,	225 }, // Oh? could be less time here // 450
-
-	{ A,		  5 },
-	{ NOTHING,	700 }, // Egg is hatching
-	{ A,		  5 },
-	{ NOTHING,	150 } // Waiting for the screen to fade back to the player
-
-	// RELEASE HERE
-
-	// 1ST ROW
-	
-	{ A,		  5 }, 
-	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 
-	{ RIGHT,      5 }, // move to the next pokemon
-	{ NOTHING,	  5 }, 
-
-	{ A,		  5 }, 
-	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 
-	{ RIGHT,      5 }, // move to the next pokemon
-	{ NOTHING,	  5 }, 
-
-	{ A,		  5 }, 
-	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 
-	{ RIGHT,      5 }, // move to the next pokemon
-	{ NOTHING,	  5 }, 
-
-	{ A,		  5 }, 
-	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 
-	{ RIGHT,      5 }, // move to the next pokemon
-	{ NOTHING,	  5 },
-
-	{ A,		  5 }, 
-	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 
-	{ RIGHT,      5 }, // move to the next pokemon
-	{ NOTHING,	  5 }, 
-
-	{ A,		  5 }, 
-	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 	
-	{ DOWN,		  5 }, // DONE WITH ROW: move to next row
-	{ NOTHING, 	  5 },
-
-	//END OF ROW - AFTER THE FIFTH TIME, NEED TO SKIP NEXT SECTION AND CHANGE BOXES INSTEAD
-
-	{ LEFT,	      5 }, // going back to the start of the row
-	{ NOTHING,	  5 },
-	{ LEFT,	      5 },
-	{ NOTHING,	  5 },
-	{ LEFT,	      5 },
-	{ NOTHING,	  5 },
-	{ LEFT,	      5 },
-	{ NOTHING,	  5 },
-	{ LEFT,	      5 },
-	{ NOTHING,	  5 },
-
-	// CHANGING BOXES HERE
-
-	// { R,		  5 }, // Change box
-	// { NOTHING,   10 },
-	// { UP,		  5 },
-	// { NOTHING,	  5 },
-	// { UP,		  5 }, 
-	// { NOTHING,    5 },
-	// { UP,		  5 },
-	// { NOTHING,	  5 },
-	// { UP,		  5 }, // move back to top row
-	// { NOTHING,    5 },
-	// { LEFT,	      5 }, 
-	// { NOTHING,	  5 },
-	// { LEFT,	      5 },
-	// { NOTHING,	  5 },
-	// { LEFT,	      5 },
-	// { NOTHING,	  5 },
-	// { LEFT,	      5 },
-	// { NOTHING,	  5 },
-	// { LEFT,	      5 }, // move back to first slot in box
-	// { NOTHING,	  5 },
-	
-
-// END OF RELEASING	
-
-
-};
-*/
-
 // Main entry point.
 int main(void) {
 	// We'll start by performing hardware and peripheral setup.
@@ -439,6 +152,11 @@ int bufindex = 0;
 int duration_count = 0;
 int portsval = 0;
 
+int curCol = 0;
+int curRow = 0;
+int newDuration = 1; // this is to make sure things happen once per step
+int loopCounter = 0;
+
 // Prepare the next report for the host.
 void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
@@ -569,7 +287,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					ReportData->Button |= SWITCH_PLUS;
 					break;
 
-				default:
+				default: // this is NOTHING
 					ReportData->LX = STICK_CENTER;
 					ReportData->LY = STICK_CENTER;
 					ReportData->RX = STICK_CENTER;
@@ -585,14 +303,66 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			if (duration_count > step[bufindex].duration)
 			{
 				bufindex++;
-				duration_count = 0;				
+				duration_count = 0;	
+				newDuration = 1; //resets to a new duration			
 			}
+
+
+			#ifdef RELEASE //this section only applies if the breeding loop is being used
+
+			if(newDuration){
+				if(bufindex == 21 && curCol == 5 && curRow == 4){ //this means we need to jump to the next box
+					curCol = 0;
+					curRow = 0;
+					bufindex = 36; //this changes to row switching commands
+					// while(1);
+				} else if(bufindex == 21 && curCol == 5){ // this means we are at the end of the release commands and need to move down
+					curCol = 0;
+					bufindex = 23; // jump to moving down a column
+					curRow++; // increment the current row
+					// while(1);
+				} else if(bufindex == 21){
+					curCol++; // increment the current column
+				}
+			}
+
+			// these are the catch cases to jump back to instruction 7 - timing is off here
+			// get's into this if statement before going down, and the goes down afterward
+			// if this is set to 22 it never gets here
+			// if this is set to 21 (RIGHT) this will never go right
+			// if this is set to 23 (DOWN) this will go down?? and then go back to instruction 7
+			if(bufindex == 22 && curCol < 6){ // this isn't catching, curCol must be 5
+				bufindex = 7;
+			}
+
+			if(bufindex == 35 && curRow < 5){ // this conditional was making it break
+				bufindex = 7;
+			}
+			
+			newDuration = 0; // set this to zero for the rest of the duration
+
+			#endif
 
 			// this means we are at the end of the loop
 			if (bufindex > (int)( sizeof(step) / sizeof(step[0])) - 1)
 			{
+				
+				// loop counter will count number of boxes for releasing 
+				// but will count num of mons for breeding
+				loopCounter++; //increments each time we go through the loop
 
-				// state = CLEANUP;
+				// THESE TWO IF STATEMENTS ARE SO WE CAN SET A NUMBER OF BOXES TO BREED/RELEASE AND THEN STOP THERE
+				#ifdef RELEASE 
+				if(loopCounter >= NUM_BOXES){
+					while(1); //we are done and we will stay in a while loop forever
+				}
+				#endif
+
+				#ifdef BREED
+				if(loopCounter/30 >= NUM_BOXES){
+					while(1); //we are done and we will stay in a while loop forever
+				}
+				#endif
 
 				bufindex = 7; // this takes into account the controller setup
 				duration_count = 0;

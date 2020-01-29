@@ -3,18 +3,13 @@
 #define _DEFAULTS_H_
 
 // ONLY ONE OF THESE SHOULD BE UNCOMMENTED AT A TIME
-// #define BREED5120
-// #define BREED10240
+// #define BREED
+// #define BREED_5120
+// #define BREED_10240
 #define RELEASE
 
-// ONLY ONE OF THESE SHOULD BE UNCOMMENTED AT A TIME
-// #define DIVISOR 1 // this is for eggs that are 10,240 base steps
-// #define DIVISOR 1.15 // this is for eggs that are 8,960 base steps
-// #define DIVISOR 1.6 // this is for eggs that are base 6,400 steps
-#define DIVISOR 2 // this is for eggs that are 5,120 base steps
-// #define DIVISOR 2.667 // this is for eggs with 3,840 base steps (will need to revise due to decimal)
-// #define DIVISOR 4 // this is for eggs that are 2,560 base steps
-// #define DIVISOR 8 // this is for eggs that are 1,280 base steps
+// this will dictate both the amount of pokemon and the number of boxes released (still a work in progress)
+#define NUM_BOXES 2
 
 typedef enum {
 	UP,
@@ -39,7 +34,7 @@ typedef struct {
 	uint16_t duration;
 } command; 
 
-#ifdef BREED5120
+#ifdef BREED_5120
 static const command step[] = {
 
 	// Setup controller - necessary for normal Switch, but not for Switch Lite
@@ -149,7 +144,7 @@ static const command step[] = {
 };
 #endif
 
-#ifdef BREED10240
+#ifdef BREED_10240
 static const command step[] = {
 
 	// Setup controller - necessary for normal Switch, but not for Switch Lite
@@ -262,31 +257,21 @@ static const command step[] = {
 #ifdef RELEASE
 static const command step[] = {
 
-	// Setup controller - necessary for normal Switch, but not for Switch Lite
+	// Setup controller - necessary for normal Switch, but not for Switch Lite (won't bother Switch Lite)
+	// STARTS ON 0TH COMMAND
 	{ NOTHING,  250 },
-	// { TRIGGERS,   5 },
     { NOTHING,    5 },
 	{ NOTHING,  150 },
-	// { TRIGGERS,   5 },
     { NOTHING,    5 },
 	{ NOTHING,  150 },
 	{ A,          5 },
     { NOTHING,    5 },
 
-	// Skipping the first seven commands
-	// { NOTHING,   50 },
-	// { NOTHING,   30 }, 
-	// { NOTHING,    5 },
-	// { NOTHING,   30 }, 
-	// { NOTHING,    5 },
-	// { NOTHING,   30 },
-	// { NOTHING,    5 },
-
 	//***********************RELEASE LOOP*************************//
 
 	// 1ST ROW
 	// STARTS ON 7TH COMMAND
-	{ A,		  5 }, 
+	{ A,		 20 }, 
 	{ NOTHING,	  5 }, 
 	{ UP,		  5 },
 	{ NOTHING,	  5 },
@@ -297,99 +282,18 @@ static const command step[] = {
 	{ UP,		  5 }, 
 	{ NOTHING,	  5 },
 	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
+	{ NOTHING,	 60 }, // --- was released. Bye, bye ---!
 	{ A,		  5 }, // confirm
 	{ NOTHING,    5 }, 
-	{ RIGHT,      5 }, // move to the next pokemon
-	{ NOTHING,	  5 }, 
 
-	{ A,		  5 }, 
-	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 
-	{ RIGHT,      5 }, // move to the next pokemon
-	{ NOTHING,	  5 }, 
 
-	{ A,		  5 }, 
+	{ RIGHT,      5 }, // move to the next pokemon THIS COMMAND 21
 	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 
-	{ RIGHT,      5 }, // move to the next pokemon
-	{ NOTHING,	  5 }, 
-
-	{ A,		  5 }, 
-	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 
-	{ RIGHT,      5 }, // move to the next pokemon
-	{ NOTHING,	  5 },
-
-	{ A,		  5 }, 
-	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 
-	{ RIGHT,      5 }, // move to the next pokemon
-	{ NOTHING,	  5 }, 
-
-	{ A,		  5 }, 
-	{ NOTHING,	  5 }, 
-	{ UP,		  5 },
-	{ NOTHING,	  5 },
-	{ UP,		  5 }, // move to release choice
-	{ NOTHING,    5 },
-	{ A,		  5 }, // select to release
-	{ NOTHING,	 35 }, // do you really want to release this pokemon?
-	{ UP,		  5 }, 
-	{ NOTHING,	  5 },
-	{ A,		  5 }, // yes
-	{ NOTHING,	 60 }, // --- was released. Bye, bye --_!
-	{ A,		  5 }, // confirm
-	{ NOTHING,    5 }, 	
-	{ DOWN,		  5 }, // DONE WITH ROW: move to next row
+	{ NOTHING,   10 },
+	// THIS SECTION IS 16 COMMANDS LONG, NEED TO TRAVERSE THIS FIVE TIMES AND THEN THE SECTION BELOW ONCE 
+		
+	{ DOWN,		  5 }, // DONE WITH ROW: move to next row THIS IS COMMAND 24
 	{ NOTHING, 	  5 },
-
-	//END OF ROW - AFTER THE FIFTH TIME, NEED TO SKIP NEXT SECTION AND CHANGE BOXES INSTEAD
-
 	{ LEFT,	      5 }, // going back to the start of the row
 	{ NOTHING,	  5 },
 	{ LEFT,	      5 },
@@ -399,30 +303,31 @@ static const command step[] = {
 	{ LEFT,	      5 },
 	{ NOTHING,	  5 },
 	{ LEFT,	      5 },
-	{ NOTHING,	  5 },
+	{ NOTHING,	  5 }, // THIS IS COMMAND 35
+	// END TRAVERSING THIS SECTION ONCE
 
 	// CHANGING BOXES HERE
-
-	// { R,		  5 }, // Change box
-	// { NOTHING,   10 },
-	// { UP,		  5 },
-	// { NOTHING,	  5 },
-	// { UP,		  5 }, 
-	// { NOTHING,    5 },
-	// { UP,		  5 },
-	// { NOTHING,	  5 },
-	// { UP,		  5 }, // move back to top row
-	// { NOTHING,    5 },
-	// { LEFT,	      5 }, 
-	// { NOTHING,	  5 },
-	// { LEFT,	      5 },
-	// { NOTHING,	  5 },
-	// { LEFT,	      5 },
-	// { NOTHING,	  5 },
-	// { LEFT,	      5 },
-	// { NOTHING,	  5 },
-	// { LEFT,	      5 }, // move back to first slot in box
-	// { NOTHING,	  5 },
+	{ NOTHING,   10 },
+	{ R,		  5 }, // Change box THIS IS COMMAND 37
+	{ NOTHING,   15 },
+	{ UP,		  5 },
+	{ NOTHING,	  5 },
+	{ UP,		  5 }, 
+	{ NOTHING,    5 },
+	{ UP,		  5 },
+	{ NOTHING,	  5 },
+	{ UP,		  5 }, // move back to top row
+	{ NOTHING,    5 },
+	{ LEFT,	      5 }, 
+	{ NOTHING,	  5 },
+	{ LEFT,	      5 },
+	{ NOTHING,	  5 },
+	{ LEFT,	      5 },
+	{ NOTHING,	  5 },
+	{ LEFT,	      5 },
+	{ NOTHING,	  5 },
+	{ LEFT,	      5 }, // move back to first slot in box
+	{ NOTHING,	  5 },
 	
 };
 #endif 
