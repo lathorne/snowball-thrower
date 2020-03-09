@@ -358,7 +358,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				}
 				#endif
 
-				#ifdef BREED
+				#ifdef BREED_5120 || BREED_10240
 				if(loopCounter/30 >= NUM_BOXES){
 					while(1); //we are done and we will stay in a while loop forever
 				}
