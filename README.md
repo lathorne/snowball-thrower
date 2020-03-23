@@ -38,7 +38,7 @@ There are occasions when I have left this running over night and it wasn't worki
 
 - In case you see issues with controller conflicts while in docked mode, try using a USB-C to USB-A adapter in handheld mode. In dock mode, changes in the HDMI connection will briefly make the Switch not respond to incoming USB commands, skipping parts of the sequence. These changes may include turning off the TV, or switching the HDMI input. (Switching to the internal tuner will be OK, if this doesn't trigger a change in the HDMI input.)
 
-- Again, breeding eggs with under 3840 base steps may cause issues. When breeding eggs with 2560 bases steps, I get through 4-8 boxes before an issue occurs. The code may be adjused to fix this.
+- Again, breeding eggs with under 3840 base steps may cause issues. When breeding eggs with 2560 bases steps, I get through 4-8 boxes before an issue occurs. The code may be adjusted to fix this.
 
 Issues occur very rarely and can be fixed by restarting the game and the breeding process. Remember to save your game before plugging in the Arduino. Let me know if you are having other issues and I can take a look.
 
