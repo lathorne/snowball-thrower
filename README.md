@@ -8,15 +8,14 @@ The following prerequisites must be met:
 * both Pokemon must be in the daycare on Route 5 (NOT in the wild area)
 * an egg must be ready to grab (the daycare lady's arms must be crossed)
 * a Pokemon with flame body must be in your party, NOT in the first party slot
-* your part must be full
+* your party must be full
 * there must be no eggs in your party
 * your menu must be hovering over the map option (if you press plus, the cursor must start over the map)
 * you must start on your bike
 * you must have the oval charm (to make eggs ready for pickup more frequently)
+* make sure the Pokemon you are hatching is already registered in your pokedex
 
-If all these prereqs are met, flash the Arduino and plug it into your console/dock.
-
-In case you see issues with controller conflicts while in docked mode, try using a USB-C to USB-A adapter in handheld mode. In dock mode, changes in the HDMI connection will briefly make the Switch not respond to incoming USB commands, skipping parts of the sequence. These changes may include turning off the TV, or switching the HDMI input. (Switching to the internal tuner will be OK, if this doesn't trigger a change in the HDMI input.)
+If all these prereqs are met, flash the Arduino and plug it into your console/dock when your character is on Route 5 and your menu is not open (you should be able to see your character and, again, you should be on your bike). It will take a bit and then start the breeding process by opening your menu. If all is set up properly, you should be good to go.
 
 This repository has been tested using an Arduino Uno R3.
 
@@ -33,7 +32,19 @@ will put LUFA in the right directory.
 
 Finally, open a terminal window in the `swsh-pokemon-breeder` directory, edit the `makefile` setting `MCU = atmega16u2`, and compile by typing `make`. Follow the [DFU mode directions](https://www.arduino.cc/en/Hacking/DFUProgramming8U2) to flash `Joystick.hex` onto your Arduino UNO R3 and you are done.
 
+#### Possible Issues
+
+There are occasions when I have left this running over night and it wasn't working properly in the morning. I suggest saving before plugging in the device to make sure you can restart the game if something like this happens and no progress is interrupted. Here are some known issues:
+
+- In case you see issues with controller conflicts while in docked mode, try using a USB-C to USB-A adapter in handheld mode. In dock mode, changes in the HDMI connection will briefly make the Switch not respond to incoming USB commands, skipping parts of the sequence. These changes may include turning off the TV, or switching the HDMI input. (Switching to the internal tuner will be OK, if this doesn't trigger a change in the HDMI input.)
+
+- Again, breeding eggs with under 3840 base steps may cause issues. When breeding eggs with 2560 bases steps, I get through 4-8 boxes before an issue occurs. The code may be adjused to fix this.
+
+Issues occur very rarely and can be fixed by restarting the game and the breeding process. Remember to save your game before plugging in the Arduino. Let me know if you are having other issues and I can take a look.
+
 #### Thanks
+
+Thank you to everyone who worked on this project before me! I just changed it to work for breeding in sword and shield. The following are thanks from the forked repo:
 
 Thanks to Shiny Quagsire for his [Splatoon post printer](https://github.com/shinyquagsire23/Switch-Fightstick) and progmem for his [original discovery](https://github.com/progmem/Switch-Fightstick).
 
