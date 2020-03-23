@@ -3,10 +3,10 @@
 #define _DEFAULTS_H_
 
 // ONLY ONE OF THESE SHOULD BE UNCOMMENTED AT A TIME
-// #define BREED_3840
+#define BREED_3840
 // #define BREED_5120
 // #define BREED_8960
-#define BREED_10240
+// #define BREED_10240
 // #define RELEASE
 
 // this will dictate both the amount of pokemon and the number of boxes released (still a work in progress)
