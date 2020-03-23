@@ -1,33 +1,37 @@
-## snowball thrower
+## Automatic Pokemon Breeder
 
-Automatically throws snowballs in The Legend of Zelda: Breath of the Wild by emulating a controller on a Teensy++ v2.0
-
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/udo8mv5oarg/0.jpg)](https://www.youtube.com/watch?v=udo8mv5oarg)
-
-A full writeup is [here](https://medium.com/@bertrandom/automating-zelda-3b37127e24c8).
+This will automate the breeding process for quicker shiny hunting/competitive breeding. Note that this is automated, but is slower than hatching the eggs by hand because it will fully hatch an egg before grabbing another. Note that this does not always work for eggs that have under 3840 base steps. This is because an egg is not always ready for pickup by the time the egg hatches. This can be fixed by modifying the code to bike around for a bit after the egg hatches (for eggs with base steps 1280 and 2560). 
 
 #### How to use
 
-Walk up to Pondo until the **(A) Talk** option is available and plug in the controller. It will automatically sync with the console, initiate the bowling game with Pondo, throw a perfect strike, and end the bowling game. It will play the bowling game in a loop.
+The following prerequisites must be met:
+*both Pokemon must be in the daycare on Route 5 (NOT in the wild area)
+*an egg must be ready to grab (the daycare lady's arms must be crossed)
+*a Pokemon with flame body must be in your party, NOT in the first party slot
+*your part must be full
+*there must be no eggs in your party
+*your menu must be hovering over the map option (if you press plus, the cursor must start over the map)
+*you must start on your bike
+*you must have the oval charm (to make eggs ready for pickup more frequently)
 
-Note that due to certain weather conditions, Link will sometimes fail to throw a strike, causing the game to enter into a mode where Link has to throw again. Thanks to a [change by exsilium](https://github.com/bertrandom/snowball-thrower/pull/1), the loop will recover from this, given enough time. I've tested this running for over 24 hours.
+If all these prereqs are met, flash the Arduino and plug it into your console/dock.
 
 In case you see issues with controller conflicts while in docked mode, try using a USB-C to USB-A adapter in handheld mode. In dock mode, changes in the HDMI connection will briefly make the Switch not respond to incoming USB commands, skipping parts of the sequence. These changes may include turning off the TV, or switching the HDMI input. (Switching to the internal tuner will be OK, if this doesn't trigger a change in the HDMI input.)
 
-This repository has been tested using a Teensy 2.0++.
+This repository has been tested using an Arduino Uno R3.
 
-#### Compiling and Flashing onto the Teensy 2.0++
-Go to the Teensy website and download/install the [Teensy Loader application](https://www.pjrc.com/teensy/loader.html). For Linux, follow their instructions for installing the [GCC Compiler and Tools](https://www.pjrc.com/teensy/gcc.html). For Windows, you will need the [latest AVR toolchain](http://www.atmel.com/tools/atmelavrtoolchainforwindows.aspx) from the Atmel site. See [this issue](https://github.com/LightningStalker/Splatmeme-Printer/issues/10) and [this thread](http://gbatemp.net/threads/how-to-use-shinyquagsires-splatoon-2-post-printer.479497/) on GBAtemp for more information. (Note for Mac users - the AVR MacPack is now called AVR CrossPack. If that does not work, you can try installing `avr-gcc` with `brew`.)
+#### Compiling and Flashing onto the Arduino UNO R3
+You will need to set your [Arduino in DFU mode](https://www.arduino.cc/en/Hacking/DFUProgramming8U2), and flash its USB controller. (Note for Mac users - try [brew](https://brew.sh/index_it.html) to install the dfu-programmer with `brew install dfu-programmer`.) Setting an Arduino UNO R3 in DFU mode is quite easy, all you need is a jumper (the boards come with the needed pins in place). Please note that once the board is flashed, you will need to flash it back with the original firmware to make it work again as a standard Arduino. To compile this project you will need the AVR GCC Compiler and Tools. (Again for Mac users - try brew, adding the [osx-cross/avr](osx-cross/avr) repository, all you need to do is to type `brew tap osx-cross/avr` and `brew install avr-gcc`.) 
 
 LUFA has been included as a git submodule, so cloning the repo like this:
 
 ```
-git clone --recursive git@github.com:bertrandom/snowball-thrower.git
+git clone --recursive git@github.com:lathorne/swsh-pokemon-breeder.git
 ```
 
 will put LUFA in the right directory.
 
-Now you should be ready to rock. Open a terminal window in the `snowball-thrower` directory, type `make`, and hit enter to compile. If all goes well, the printout in the terminal will let you know it finished the build! Follow the directions on flashing `Joystick.hex` onto your Teensy, which can be found page where you downloaded the Teensy Loader application.
+Finally, open a terminal window in the `swsh-pokemon-breeder` directory, edit the `makefile` setting `MCU = atmega16u2`, and compile by typing `make`. Follow the [DFU mode directions](https://www.arduino.cc/en/Hacking/DFUProgramming8U2) to flash `Joystick.hex` onto your Arduino UNO R3 and you are done.
 
 #### Thanks
 
