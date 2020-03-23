@@ -44,7 +44,7 @@ Issues occur very rarely and can be fixed by restarting the game and the breedin
 
 #### Thanks
 
-Thank you to everyone who worked on this project before me! I just changed it to work for breeding in sword and shield. The following are thanks from the forked repo:
+Thank you to everyone who worked on this project before me! I just changed it to work for breeding in sword and shield. If I have failed to credit anyone who deserves it, please let me know. The following are thanks from the forked repo:
 
 Thanks to Shiny Quagsire for his [Splatoon post printer](https://github.com/shinyquagsire23/Switch-Fightstick) and progmem for his [original discovery](https://github.com/progmem/Switch-Fightstick).
 
