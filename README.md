@@ -5,14 +5,14 @@ This will automate the breeding process for quicker shiny hunting/competitive br
 #### How to use
 
 The following prerequisites must be met:
-*both Pokemon must be in the daycare on Route 5 (NOT in the wild area)
-*an egg must be ready to grab (the daycare lady's arms must be crossed)
-*a Pokemon with flame body must be in your party, NOT in the first party slot
-*your part must be full
-*there must be no eggs in your party
-*your menu must be hovering over the map option (if you press plus, the cursor must start over the map)
-*you must start on your bike
-*you must have the oval charm (to make eggs ready for pickup more frequently)
+* both Pokemon must be in the daycare on Route 5 (NOT in the wild area)
+* an egg must be ready to grab (the daycare lady's arms must be crossed)
+* a Pokemon with flame body must be in your party, NOT in the first party slot
+* your part must be full
+* there must be no eggs in your party
+* your menu must be hovering over the map option (if you press plus, the cursor must start over the map)
+* you must start on your bike
+* you must have the oval charm (to make eggs ready for pickup more frequently)
 
 If all these prereqs are met, flash the Arduino and plug it into your console/dock.
 
