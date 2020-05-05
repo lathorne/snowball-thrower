@@ -18,6 +18,11 @@ The following prerequisites must be met:
 * make sure the Pokemon you are hatching is already registered in your pokedex
 * the first Pokemon in your party should not be holding an item (when they are moved to a box the game will ask what you want to do with their item creating an additional dialog box the breeder doesn't expect).
 
+Also, the following settings must be set:
+* send to box must be manual
+* give nicknames should be set to don't
+* text speed should be set to fast
+
 If all these prereqs are met, flash the Arduino and plug it into your console/dock when your character is on Route 5 and your menu is not open (you should be able to see your character and, again, you should be on your bike). It will take a bit and then start the breeding process by opening your menu. If all is set up properly, you should be good to go.
 
 This repository has been tested using an Arduino Uno R3.
